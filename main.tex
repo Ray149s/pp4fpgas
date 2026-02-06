@@ -144,15 +144,13 @@ identifierstyle=\sffamily}
 \immediate\write18{#3}%
 }
 \newcommand{\includesvg}[1]{%
-\executeiffilenewer{#1.svg}{images/#1.pdf}%
-{inkscape -z -D --file=#1.svg %
---export-pdf=images/#1.pdf --export-latex}%
+\executeiffilenewer{figures/#1.svg}{images/#1.pdf}%
+{inkscape figures/#1.svg --export-type=pdf --export-filename=images/#1.pdf --export-latex}%
 \subimport{./images/}{#1.pdf_tex}%
 }
 \newcommand{\includesvgimg}[1]{%
-\executeiffilenewer{#1.svg}{images/#1.pdf}%
-{inkscape -z -D --file=#1.svg %
---export-pdf=images/#1.pdf}%
+\executeiffilenewer{figures/#1.svg}{images/#1.pdf}%
+{inkscape figures/#1.svg --export-type=pdf --export-filename=images/#1.pdf}%
 \includegraphics{./images/#1.pdf}%
 }
 
