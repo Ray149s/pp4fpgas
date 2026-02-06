@@ -31,3 +31,7 @@
 *.upb
 main.pdf
 *.bin
+
+# Prevent re-adding cleaned file types
+*.zip
+*.ai

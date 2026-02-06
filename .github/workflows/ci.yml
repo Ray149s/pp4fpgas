@@ -15,14 +15,14 @@ jobs:
   test:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Compile book
       uses: docker://xucheng/texlive-full:latest
       with:
         entrypoint: /bin/sh
         args: |
           -c "\
-          apk --no-cache add make && \
+          apk --no-cache add make inkscape && \
           make all"
     - name: List directory contents
       run: ls -lhtra
