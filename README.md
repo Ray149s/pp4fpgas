@@ -44,7 +44,11 @@ The build uses `pdflatex` with `-shell-escape` to invoke Inkscape for SVG-to-PDF
 ```
 .
 ├── main.tex              # Master document (includes all chapters)
-├── *.tex                 # Chapter files (fir, cordic, dft, fft, etc.)
+├── chapters/             # Chapter source files
+│   ├── intro.tex
+│   ├── fir.tex
+│   ├── cordic.tex
+│   └── ...               # (21 chapter files total)
 ├── all.bib               # Bibliography
 ├── figures/              # SVG source figures (converted to PDF at build time)
 ├── images/               # Generated PDFs, PNGs, and other images

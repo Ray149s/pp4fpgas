@@ -1,10 +1,10 @@
 all: main.pdf
 
-main.aux: all.bib *.tex
+main.aux: all.bib main.tex chapters/*.tex
 	pdflatex -shell-escape \\nonstopmode\\input main.tex
 	bibtex main
 
-main.pdf: main.aux *.tex figures/*.svg
+main.pdf: main.aux main.tex chapters/*.tex figures/*.svg
 	pdflatex -shell-escape \\nonstopmode\\input main.tex
 	pdflatex -shell-escape \\nonstopmode\\input main.tex
 

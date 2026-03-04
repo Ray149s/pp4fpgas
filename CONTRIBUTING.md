@@ -22,7 +22,7 @@ The first build will invoke Inkscape to convert all SVG figures in `figures/` to
 
 ## Project Structure
 
-- **Chapter files** (`.tex`) are in the repository root. `main.tex` is the master document.
+- **Chapter files** (`.tex`) are in the `chapters/` directory. `main.tex` is the master document.
 - **SVG figures** go in `figures/`. The `\includesvg{name}` macro handles conversion automatically.
 - **Generated images** (PDF, PDF_TEX) end up in `images/` and should not be committed.
 - **Code examples** go in `examples/`. Name files with the `topic_variant.c` convention.
