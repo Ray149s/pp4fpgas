@@ -1,38 +1,77 @@
-# Examples
+# HLS Book Examples Subdirectory README
 
-C/C++ HLS code examples referenced throughout the pp4fpgas textbook.
+Use Makefile to run tests and various HLS stages for all examples.
 
-## Organization
+## Software Tests
 
-Examples are organized by topic, corresponding to book chapters:
+* cd examples
+* make clean
+* make test
+* make test_verify
+  * This checks for errors in all test logs automatically
 
-| Prefix | Chapter | Description |
-|--------|---------|-------------|
-| `fir*`, `block_fir*`, `complex_fir*` | FIR Filters | Finite impulse response filter implementations |
-| `cordic*` | CORDIC | Coordinate rotation digital computer |
-| `dft*` | DFT | Discrete Fourier Transform |
-| `fft*` | FFT | Fast Fourier Transform |
-| `matrix_vector*` | Sparse Matrix Vector | Matrix-vector multiplication variants |
-| `matrixmultiplication*`, `block_mm*` | Matrix Multiplication | Matrix multiplication and blocking |
-| `spmv*` | Sparse Matrix Vector | Sparse matrix-vector operations |
-| `prefixsum*` | Prefix Sum & Histogram | Prefix sum algorithms |
-| `histogram*` | Prefix Sum & Histogram | Histogram implementations |
-| `insertion_sort*`, `merge_sort*` | Sorting | Sorting algorithm implementations |
-| `huffman*` | Huffman Encoding | Huffman encoding/decoding |
-| `video*`, `bitmap*` | Video Processing | 2D filter and video processing |
+NOTE: make test runs with g++ rather than csim_design.
 
-## Building and Testing
+## Vitis HLS Synthesis
+
+* cd examples
+* make clean
+* make csynth
+* make csynth_verify
+  * This checks for errors in all of the HLS csynth logs automatically
+
+## C Simulation
+
+* cd examples
+* make clean
+* make csim
+* make csim_verify
+  * This checks for errors in C simulation logs automatically
+
+## Co-Simulation
+
+* cd examples
+* make clean
+* make cosim
+* make cosim_verify
+  * This checks for errors in co-simulation logs automatically
+
+## Complete Workflow Example
 
 ```bash
-make test    # Compile and run all test executables (requires Vivado HLS headers)
+cd examples
+make clean
+make test
+make test_verify
+make clean
+make csim
+make csim_verify
+make clean
+make csynth
+make csynth_verify
+make clean
+make cosim
+make cosim_verify
 ```
 
-The Makefile automatically discovers test files by finding `*-top.c` and `*-top.cpp` source files and compiling them with their corresponding implementation files.
+## Verification Commands
 
-## File Naming Convention
+Each *_verify target runs specific checks:
 
-- `name.c` / `name.cpp` — Implementation source
-- `name.h` — Header file
-- `name-top.c` / `name-top.cpp` — Test harness (main function)
-- `name.tcl` — Vivado HLS project creation script
-- `*.gold.dat` — Expected output for test verification
+* test_verify: Finds and reports errors in software test logs
+* csynth_verify: Finds and reports errors in HLS synthesis logs
+* csim_verify: Finds and reports errors in C simulation logs
+* cosim_verify: Finds and reports errors in co-simulation logs
+
+If no errors are found, these commands will report "No errors found in [type] logs".
+
+## Manual Verification
+
+You can also manually check logs:
+
+* Software test logs: `grep -q "ERROR" *.log`
+* HLS synthesis logs: `find -wholename "*.comp/hls/hls.log" -exec grep -i 'error:' {} +`
+* C simulation logs: `find . -path "*/csim/*/hls*.log" -o -path "*/csim/*.log" -exec grep -i '^\s*error:' {} +`
+* Co-simulation logs: `find . -path "*.comp/hls/sim/verilog/xsim.log" -exec grep -i '^\s*error:' {} +`
+
+To verify these commands work, try replacing 'error:' with 'warning:' and rerun to see typical output.

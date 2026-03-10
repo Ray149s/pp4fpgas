@@ -1,3 +1,8 @@
+// The original work is licensed under the Creative Commons Attribution 4.0 International License.
+// See https://creativecommons.org/licenses/by/4.0/ or refer to the LICENSE file for details.
+//
+// Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+
 // The file cordic.h holds definitions for the data types and constant values
 #include "cordic.h"
 
@@ -10,12 +15,13 @@ void cordic(THETA_TYPE theta, COS_SIN_TYPE &s, COS_SIN_TYPE &c)
   // Set the initial vector that we will rotate
   // current_cos = I; current_sin = Q
   COS_SIN_TYPE current_cos = 0.60735;
+  //COS_SIN_TYPE current_cos = 0.607252935;
   COS_SIN_TYPE current_sin = 0.0;
 
   COS_SIN_TYPE factor = 1.0;
   // This loop iteratively rotates the initial vector to find the
   // sine and cosine values corresponding to the input theta angle
-  for (int j = 0; j < NUM_ITERATIONS; j++) {
+  cordic_loop_1: for (int j = 0; j < NUM_ITERATIONS; j++) {
       // Determine if we are rotating by a positive or negative angle
       int sigma = (theta < 0) ? -1 : 1;
 

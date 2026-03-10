@@ -1,3 +1,8 @@
+// The original work is licensed under the Creative Commons Attribution 4.0 International License.
+// See https://creativecommons.org/licenses/by/4.0/ or refer to the LICENSE file for details.
+//
+// Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+
 #include "spmv.h"
 #include <iostream>
 
@@ -6,7 +11,7 @@ const static int S = 4;
 void spmv(int row_ptr[NUM_ROWS+1], int columnIndex[NNZ],
        DTYPE values[NNZ], DTYPE y[SIZE], DTYPE x[SIZE])
 {
-#pragma HLS ARRAY_PARTITION variable=row_ptr cyclic factor=16 dim=1
+#pragma HLS ARRAY_PARTITION variable=row_ptr cyclic factor=NUM_ROWS+1 dim=1
 
 int i;
 int cnt[4];
@@ -31,6 +36,7 @@ int flag[4];
 	element_left[i] = UB[i] - LB[i];
 	element_done[i] = 0;
 	flag[i] = 0;
+	y[i] = 0;
     // std::cout << "starting row " << i << " from " << LB[i] << " to " << UB[i] << "\n";
  }
 

@@ -1,7 +1,12 @@
+// The original work is licensed under the Creative Commons Attribution 4.0 International License.
+// See https://creativecommons.org/licenses/by/4.0/ or refer to the LICENSE file for details.
+//
+// Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+
 #include "spmv.h"
 #include <stdio.h>
 
-const static int S = 8;
+const static int S = SIZE;
 
 void spmv(int rowPtr[NUM_ROWS+1], int columnIndex[NNZ],
        DTYPE values[NNZ], DTYPE y[SIZE], DTYPE x[SIZE]) {

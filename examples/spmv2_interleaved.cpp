@@ -1,15 +1,20 @@
+// The original work is licensed under the Creative Commons Attribution 4.0 International License.
+// See https://creativecommons.org/licenses/by/4.0/ or refer to the LICENSE file for details.
+//
+// Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+
 #include "spmv.h"
 #include <stdio.h>
 
-const static int S = 8;
+const static int S = SIZE;
 
 void spmv(int rowPtr[NUM_ROWS+1], int columnIndex[NNZ],
        DTYPE values[NNZ], DTYPE y[SIZE], DTYPE x[SIZE])
 {
 	//#pragma HLS ARRAY_PARTITION variable=rowPtr cyclic factor=2 dim=1
 	int currentrow[S];
-	int LB;
-	int UB;
+	int LB[S];
+	int UB[S];
 	int flag[S];
 	int row;
 
@@ -32,7 +37,7 @@ void spmv(int rowPtr[NUM_ROWS+1], int columnIndex[NNZ],
  ACC:
  for(int i=0; i<NNZ * S; i++ ) {
 	 int j = i % S;
-#pragma HLS DEPENDENCE variable=y inter distance=8
+//#pragma HLS DEPENDENCE variable=y inter distance=8
 	 //#pragma HLS DEPENDENCE variable=UB inter distance=8
 	 //#pragma HLS DEPENDENCE variable=LB inter distance=8
 #pragma HLS PIPELINE II=1
