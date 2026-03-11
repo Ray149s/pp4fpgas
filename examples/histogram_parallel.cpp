@@ -1,14 +1,19 @@
+// The original work is licensed under the Creative Commons Attribution 4.0 International License.
+// See https://creativecommons.org/licenses/by/4.0/ or refer to the LICENSE file for details.
+//
+// Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+
 #include "histogram_parallel.h"
 void histogram_map(int in[INPUT_SIZE/2], int hist[VALUE_SIZE]) {
-#pragma HLS DEPENDENCE variable=hist intra RAW false
-    for(int i = 0; i < VALUE_SIZE; i++) {
+  histogram_map_loop_1: for(int i = 0; i < VALUE_SIZE; i++) {
 #pragma HLS PIPELINE II=1
-        hist[i] = 0;
-    }
+    hist[i] = 0;
+  }
   int old = in[0];
   int acc = 0;
-  for(int i = 0; i < INPUT_SIZE/2; i++) {
+  histogram_map_loop_2: for(int i = 0; i < INPUT_SIZE/2; i++) {
 #pragma HLS PIPELINE II=1
+#pragma HLS DEPENDENCE variable=hist intra RAW false
     int val = in[i];
     if(old == val) {
       acc = acc + 1;
@@ -22,7 +27,7 @@ void histogram_map(int in[INPUT_SIZE/2], int hist[VALUE_SIZE]) {
 }
 
 void histogram_reduce(int hist1[VALUE_SIZE], int hist2[VALUE_SIZE], int output[VALUE_SIZE]) {
-  for(int i = 0; i < VALUE_SIZE; i++) {
+  histogram_reduce_loop_1: for(int i = 0; i < VALUE_SIZE; i++) {
 #pragma HLS PIPELINE II=1
     output[i] = hist1[i] + hist2[i];
   }

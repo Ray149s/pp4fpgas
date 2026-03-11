@@ -35,3 +35,36 @@ main.pdf
 # Prevent re-adding cleaned file types
 *.zip
 *.ai
+
+# Object files
+*.o
+
+# HLS projects
+**/*.proj/
+**/*.comp/
+**/*.prj/
+
+# Vitis IDE
+**/_ide/
+
+# Ignore any python virtual environments
+**/.venv/
+
+# Ignore examples/tcl files since they are auto-generated
+examples/*.tcl
+
+*.pyc
+
+.vscode/
+
+examples/hls/
+
+.gradle/
+
+# Examples output data files
+examples/*.out.dat
+examples/out.*.dat
+examples/out.dat
+examples/video*.bmp
+
+scripts/tests/___summary_all_header.adoc
