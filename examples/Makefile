@@ -95,6 +95,9 @@ LD_LIBRARY_PATH := $(shell echo $(value LD_LIBRARY_PATH) | grep -q $(LD_PATH_NEW
 
 GEN_TCL = $(CURDIR)/../scripts/gen_hls_runner_script.py --verbose $(CSIM) $(CSYNTH) $(COSIM) $(IMPL)
 
+# Debug: uncomment to print all example log file targets
+#$(warning $(EXAMPLES_LOG))
+
 INPUTFILE=test_20x20.bmp
 INPUTFILE_GOLDEN_REF=test_20x20_filtered_opencv.bmp
 video_simple-top.log: video_simple-top.bin
