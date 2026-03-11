@@ -95,8 +95,6 @@ LD_LIBRARY_PATH := $(shell echo $(value LD_LIBRARY_PATH) | grep -q $(LD_PATH_NEW
 
 GEN_TCL = $(CURDIR)/../scripts/gen_hls_runner_script.py --verbose $(CSIM) $(CSYNTH) $(COSIM) $(IMPL)
 
-$(warning $(EXAMPLES_LOG))
-
 INPUTFILE=test_20x20.bmp
 INPUTFILE_GOLDEN_REF=test_20x20_filtered_opencv.bmp
 video_simple-top.log: video_simple-top.bin
@@ -167,6 +165,7 @@ CXX_HLS_TARGET_FILES = \
 	histogramSW.cpp \
 	histogram_dependence.cpp \
 	histogram_opt1.cpp \
+	histogram_parallel.cpp \
 	huffman_encoding.cpp \
 	insertion_cell_sort.cpp \
 	insertion_sort.cpp \
